@@ -34,6 +34,10 @@ if ($LASTEXITCODE -ne 0) { throw 'gen_assets.py failed' }
 $sources = @(
     (Join-Path $work 'phase_correction_pkg.vhd'),
     (Join-Path $fpga 'src\UARTReader.vhd'),
+    (Join-Path $fpga 'src\RSSFilter_1.vhd'),
+    (Join-Path $fpga 'src\Counter.vhd'),
+    (Join-Path $fpga 'src\PulseExpander.vhd'),
+    (Join-Path $fpga 'src\LatchBuffer.vhd'),
     (Join-Path $fpga 'src\PhaseLine.vhd'),
     (Join-Path $fpga 'src\Mux8.vhd'),
     (Join-Path $fpga 'src\music_player.vhd'),
@@ -43,7 +47,8 @@ $sources = @(
     (Join-Path $sim  'tb_phaseline.vhd'),
     (Join-Path $sim  'tb_allchannels.vhd'),
     (Join-Path $sim  'tb_music_player.vhd'),
-    (Join-Path $sim  'tb_chain.vhd')
+    (Join-Path $sim  'tb_chain.vhd'),
+    (Join-Path $sim  'tb_glue.vhd')
 )
 
 Write-Host 'Compiling...'
@@ -76,6 +81,7 @@ Run-TB -Top 'tb_distribute'   -RunTime '100 us'  -Label 'tb_distribute'
 Run-TB -Top 'tb_phaseline'    -RunTime '20 us'   -Label 'tb_phaseline'
 Run-TB -Top 'tb_allchannels'  -RunTime '2 ms'    -Label 'tb_allchannels'
 Run-TB -Top 'tb_music_player' -RunTime '700 ms'  -Label 'tb_music_player'
+Run-TB -Top 'tb_glue'         -RunTime '2 ms'    -Label 'tb_glue'
 
 foreach ($demo in @('demo1', 'demo2', 'demo3')) {
     Copy-Item (Join-Path $work "frame_$demo.txt") (Join-Path $work 'frame_input.txt') -Force
