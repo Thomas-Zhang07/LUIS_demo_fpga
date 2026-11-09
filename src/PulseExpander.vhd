@@ -18,11 +18,15 @@ architecture Behavioral of PulseExpander is
 begin
     pPulseExpander: process (clk_in) begin
         if rising_edge(clk_in) then
+				-- While the input is high the output stays high and the
+				-- counter is reloaded. The earlier version reloaded and
+				-- decremented in the same cycle; the decrement won, so a
+				-- held-high input produced a one-clock low glitch every
+				-- OUTPUT_LENGTH_CYCLES+1 cycles.
 				if (pulse_in = '1') then
 					sCounter <= OUTPUT_LENGTH_CYCLES;
-				end if;
-		  
-				if (sCounter = 0) then
+					s_pulse_out <= '1';
+				elsif (sCounter = 0) then
 					s_pulse_out <= '0';
 				else
 					s_pulse_out <= '1';
