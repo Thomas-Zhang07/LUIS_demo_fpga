@@ -23,6 +23,7 @@ begin
 				-- decremented in the same cycle; the decrement won, so a
 				-- held-high input produced a one-clock low glitch every
 				-- OUTPUT_LENGTH_CYCLES+1 cycles.
+        -- good it works !
 				if (pulse_in = '1') then
 					sCounter <= OUTPUT_LENGTH_CYCLES;
 					s_pulse_out <= '1';
