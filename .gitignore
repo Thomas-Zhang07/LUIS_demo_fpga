@@ -28,9 +28,9 @@ output_files/*
 # SignalTap logic-analyser setup is design source, not build output.
 !output_files/stp2.stp
 
-# ModelSim / simulation output
+# ModelSim / Questa simulation output
 work/
-simulation/modelsim/
+simulation/*/
 modelsim.ini
 *.wlf
 wlft*
