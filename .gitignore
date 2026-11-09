@@ -32,6 +32,7 @@ output_files/*
 work/
 simulation/*/
 sim/work/
+sim/work_top/
 modelsim.ini
 *.wlf
 wlft*
