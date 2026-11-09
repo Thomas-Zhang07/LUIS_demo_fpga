@@ -1,0 +1,3 @@
+# Quartus and ModelSim files are generated on Windows and must keep their
+# exact bytes; do not normalize line endings.
+* -text

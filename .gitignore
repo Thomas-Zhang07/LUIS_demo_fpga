@@ -1,0 +1,40 @@
+# Quartus II build output
+/db/
+/incremental_db/
+/greybox_tmp/
+/src/greybox_tmp/
+output_files/*
+
+# Quartus-generated reports and state
+*.rpt
+*.summary
+*.smsg
+*.flow.*
+*.qws
+*.qdf
+*.pin
+*.jdi
+*.cdf
+*.done
+*.sld
+
+# Programming files (regenerated from source; see README)
+*.jic
+*.pof
+*.sof
+*.map
+*.stp
+
+# SignalTap logic-analyser setup is design source, not build output.
+!output_files/stp2.stp
+
+# ModelSim / simulation output
+work/
+simulation/modelsim/
+modelsim.ini
+*.wlf
+wlft*
+transcript
+
+# Editor / tool backups
+*.bak
