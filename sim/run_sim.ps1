@@ -40,6 +40,7 @@ $sources = @(
     (Join-Path $fpga 'src\AllChannels.vhd'),
     (Join-Path $fpga 'src\Distribute.vhd'),
     (Join-Path $sim  'tb_distribute.vhd'),
+    (Join-Path $sim  'tb_phaseline.vhd'),
     (Join-Path $sim  'tb_allchannels.vhd'),
     (Join-Path $sim  'tb_music_player.vhd'),
     (Join-Path $sim  'tb_chain.vhd')
@@ -72,6 +73,7 @@ function Run-TB {
 
 Write-Host ''
 Run-TB -Top 'tb_distribute'   -RunTime '100 us'  -Label 'tb_distribute'
+Run-TB -Top 'tb_phaseline'    -RunTime '20 us'   -Label 'tb_phaseline'
 Run-TB -Top 'tb_allchannels'  -RunTime '2 ms'    -Label 'tb_allchannels'
 Run-TB -Top 'tb_music_player' -RunTime '700 ms'  -Label 'tb_music_player'
 
