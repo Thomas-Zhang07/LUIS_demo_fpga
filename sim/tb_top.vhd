@@ -145,19 +145,16 @@ begin
                " MISC_D=" & integer'image(md_edges) &
                " SHIFT=" & integer'image(sc_edges) severity note;
 
-        -- The frame turns channels 0..7 off, so DATA(0) must lose more
-        -- activity than DATA(1) (channels 8..15), which was not written.
+        -- The frame turns channels 0..7 off, so DATA(0) must go quiet while
+        -- DATA(1) (channels 8..15, not written) keeps running.
         --
-        -- Known anomaly: in this post-synthesis netlist DATA(0) settles at a
-        -- ~20 kHz pattern instead of going fully quiet, while the RTL
-        -- testbench shows it silent after the same frame. The exact level is
-        -- therefore not asserted here; tb_allchannels is authoritative for
-        -- the quiet behaviour. This check only proves the frame reached the
-        -- channel array and targeted the right group.
-        check(d0_edges - base0 < d1_edges - base1,
-              "DATA(0) activity reduced by the frame, DATA0=" &
-              integer'image(d0_edges - base0) &
-              " DATA1=" & integer'image(d1_edges - base1));
+        -- This used to fail: PulseExpander glitched whenever its input was
+        -- held high, which re-triggered the PhaseLine swap continuously.
+        -- Fixed in src/PulseExpander.vhd; tb_glue covers the same path in
+        -- RTL.
+        check(d0_edges = base0,
+              "DATA(0) quiet after channels 0..7 off, edges=" &
+              integer'image(d0_edges - base0));
         check(d1_edges - base1 > 10, "DATA(1) still active, edges=" &
               integer'image(d1_edges - base1));
 
